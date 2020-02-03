@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  web:
+    build: .
+    container_name: centos8_apache_php74_sqlsvr
+    # network_mode: bridge
+    ports:
+      - "9001:9001"
+      - "5000:5000"
+      - "8443:443"
+    volumes:
+      - ./data/html/:/var/www/html/:rw
+      - ./config/httpd/httpd.conf:/etc/httpd/conf/httpd.conf
+      # - ./config/supervisor/custom/mysupervisor.conf:/etc/supervisor/conf.d/mysupervisor.conf
+      - ./config/supervisor/supervisord.conf:/etc/supervisord.conf
+      - ./log/supervisor/:/var/log/supervisor/
+    network_mode: default
